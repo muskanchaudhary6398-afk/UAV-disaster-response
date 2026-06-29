@@ -1,0 +1,41 @@
+# configs/hyp_disaster.yaml
+#
+# Hyperparameters for fine-tuning YOLOv5 on disaster-response imagery.
+# Based on yolov5/data/hyps/hyp.scratch-low.yaml, re-tuned for:
+#   - aerial viewpoints (small/occluded objects -> humans under debris)
+#   - variable lighting (smoke, dust, fire glare)
+#   - class imbalance (humans are rarer than debris/vehicles)
+#
+# Usage: passed to scripts/train.py via --hyp configs/hyp_disaster.yaml
+
+lr0: 0.0032              # initial learning rate (lower for fine-tuning, not training from scratch)
+lrf: 0.12                # final OneCycleLR learning rate fraction
+momentum: 0.843
+weight_decay: 0.00036
+warmup_epochs: 2.0
+warmup_momentum: 0.5
+warmup_bias_lr: 0.05
+
+box: 0.0296              # box loss gain
+cls: 0.243                # cls loss gain (slightly upweighted -> rarer "human" class)
+cls_pw: 1.5               # cls BCELoss positive_weight (helps minority class recall)
+obj: 0.301                # obj loss gain
+obj_pw: 1.0
+iou_t: 0.20
+anchor_t: 3.44
+fl_gamma: 0.5             # focal loss gamma, helps with hard/occluded examples
+
+# --- Augmentation: tuned for disaster-zone visual conditions ---
+hsv_h: 0.0138             # hue jitter
+hsv_s: 0.664              # saturation jitter (dust/smoke desaturation)
+hsv_v: 0.464              # value jitter (fire glare / shadow variance)
+degrees: 10.0             # rotation — UAV gimbal isn't perfectly nadir
+translate: 0.15
+scale: 0.6                # large scale jitter -> varying altitude/zoom
+shear: 2.0
+perspective: 0.0005
+flipud: 0.3               # vertical flip allowed (top-down imagery)
+fliplr: 0.5
+mosaic: 1.0               # mosaic augmentation always on
+mixup: 0.15                # light mixup for occlusion robustness
+copy_paste: 0.1           # paste extra "human"/"debris" instances to fix imbalance

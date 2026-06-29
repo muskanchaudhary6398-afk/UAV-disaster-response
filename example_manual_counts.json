@@ -1,0 +1,4 @@
+{
+  "finetuned": {"tp": 440, "fp": 60, "fn": 78},
+  "baseline":  {"tp": 400, "fp": 71, "fn": 133}
+}

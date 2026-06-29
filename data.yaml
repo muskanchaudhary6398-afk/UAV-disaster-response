@@ -1,0 +1,24 @@
+# configs/data.yaml
+# Dataset configuration for the disaster-response object detection task.
+# Directory layout expected (standard YOLOv5 format):
+#
+#   dataset/
+#     images/train/*.jpg
+#     images/val/*.jpg
+#     labels/train/*.txt   (one .txt per image, YOLO-format boxes)
+#     labels/val/*.txt
+#
+# Replace `path` below with the absolute path to your prepared dataset.
+
+path: ../dataset          # dataset root, relative to this file
+train: images/train       # train images (relative to 'path')
+val: images/val           # val images (relative to 'path')
+
+# Number of classes
+nc: 3
+
+# Class names (order matters — index must match label files)
+names:
+  0: human
+  1: debris
+  2: vehicle
